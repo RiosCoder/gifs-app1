@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { RouterLink, RouterLinkActive } from '@angular/router';
 
 interface MenuOpcion {
   icon: string;
@@ -9,7 +10,9 @@ interface MenuOpcion {
 
 @Component({
   selector: 'gifs-side-menu-options',
-  imports: [],
+  imports: [
+    RouterLink, RouterLinkActive
+  ],
   templateUrl: './gifs-side-menu-options.component.html',
   styleUrl: './gifs-side-menu-options.component.css',
 })
@@ -18,14 +21,14 @@ export class GifsSideMenuOptionsComponent {
     {
       icon: 'fa-solid fa-chart-line',
       label: 'Trending',
-      route: 'Gifs populares',
-      subLabel: '/dashboard/trending',
+      route: '/dashboard/trending',
+      subLabel: 'Gifs populares',
     },
     {
-      icon: 'fa-solid fa-magnifyng-glass',
+      icon: 'fa-solid fa-magnifying-glass',
       label: 'Buscador',
-      route: 'Buscar gifs',
-      subLabel: '/dashboard/search',
+      route: '/dashboard/search',
+      subLabel: 'Buscar gifs',
     },
   ];
 }
