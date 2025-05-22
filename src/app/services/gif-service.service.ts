@@ -17,7 +17,7 @@ export class GifServiceService {
     this.loadTrendingGifs();
   }
 
-  Url = environment.giphyUrl;
+  UrlCC = environment.giphyUrl;
   loadTrendingGifs() {
     this.http.get<GiphyResponse>(`${environment.giphyUrl}/gifs/trending`, {
       params: {
@@ -37,9 +37,9 @@ export class GifServiceService {
   }
 
   searchGifs(query: string): void {
-    console.log(this.Url + "gifs/search");
+    console.log("Url: " + this.UrlCC + "/gifs/search");
 
-    this.http.get<GiphyResponse>(this.Url + "gifs/search", {
+    this.http.get<GiphyResponse>(this.UrlCC + "/gifs/search", {
       params: {
         api_key: environment.giphyApikey,
         limit: 20,
