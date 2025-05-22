@@ -11,12 +11,13 @@ import { GifMapper } from '../gifs/mapper/gif.mapper';
 export class GifServiceService {
   private http = inject(HttpClient);
   trendingGifs = signal<Gif[]>([]);
-  trendingGifLoading =signal(true);
+  trendingGifLoading = signal(true);
 
   constructor() {
     this.loadTrendingGifs();
   }
 
+  Url = environment.giphyUrl;
   loadTrendingGifs() {
     this.http.get<GiphyResponse>(`${environment.giphyUrl}/gifs/trending`, {
       params: {
@@ -25,13 +26,30 @@ export class GifServiceService {
       },
     })
       .subscribe((response) => {
-        const gifs=GifMapper.mapGiphyItemsToGifs(response.data);
+        const gifs = GifMapper.mapGiphyItemsToGifs(response.data);
         this.trendingGifs.set(gifs);
         this.trendingGifLoading.set(false);
         // Log the gifs to the console
         console.log(gifs);
-        
+
 
       });
+  }
+
+  searchGifs(query: string): void {
+    console.log(this.Url + "gifs/search");
+
+    this.http.get<GiphyResponse>(this.Url + "gifs/search", {
+      params: {
+        api_key: environment.giphyApikey,
+        limit: 20,
+        q: query,
+      }
+    }).subscribe((response) => {
+      const gifs = GifMapper.mapGiphyItemsToGifs(response.data);
+      console.log({ search: gifs });
+
+    })
+
   }
 }
